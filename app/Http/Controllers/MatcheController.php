@@ -31,13 +31,13 @@ class MatcheController extends Controller
 
         // マッチ済みユーザーID
         $matchedUserIds = $selectedAnimal
-            ? $selectedAnimal->matches->pluck('organization_id')
+            ? $selectedAnimal->matches->pluck('user_id')
             : collect();
 
         // 興味ありユーザー(マッチ未承認のみ)
         $favoritedUsers = $selectedAnimal
             ? $selectedAnimal->favorites()
-                ->whereNotIn('organization_id', $matchedUserIds)
+                ->whereNotIn('user_id', $matchedUserIds)
                 ->with('user')
                 ->get()
             : collect();

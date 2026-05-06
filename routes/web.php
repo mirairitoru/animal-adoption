@@ -40,6 +40,7 @@ Route::middleware('auth:org')->group(function () {
     Route::delete('/org/animals/{animal}', [AnimalController::class, 'destroy'])->name('org.animals.destroy');
 
     Route::get('/org/match', [MatcheController::class, 'index'])->name('org.match.index');
+    Route::post('/org/match/approve', [MatcheController::class, 'approve'])->name('org.match.approve');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
