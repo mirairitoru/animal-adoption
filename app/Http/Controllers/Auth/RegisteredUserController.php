@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -31,16 +32,32 @@ class RegisteredUserController extends Controller
      */
     public function store(RegisterRequest $request): RedirectResponse
     {
-        $user = User::create([
-            'user_name' => $request->user_name,
-            'nickname' => $request->nickname,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        if ($request->role === 'organization') {
 
-        event(new Registered($user));
+            $organization = Organization::create([
+                'org_name' => $request->org_name,
+                'contact_name' => $request->contact_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
 
-        Auth::login($user);
+            event(new Registered($organization));
+
+            Auth::guard('org')->login($organization);
+
+        } else {
+
+            $user = User::create([
+                'user_name' => $request->user_name,
+                'nickname' => $request->nickname,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            event(new Registered($user));
+
+            Auth::login($user);
+        }
 
         return redirect(route('animals', absolute: false));
     }

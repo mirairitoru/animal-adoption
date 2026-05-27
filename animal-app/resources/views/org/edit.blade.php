@@ -22,8 +22,8 @@
                         {{-- ここから下の編集する --}}
                         <div class="space-y-4">
                             <div class="flex items-center">
-                                <label for="organization_name" class="w-24 font-bold text-center">団体名：</label>
-                                <input type="text" name="organization_name" id="organization_name" value="{{ old('organization_name', $org->organization_name) }}" class="flex-1">
+                                <label for="org_name" class="w-24 font-bold text-center">団体名：</label>
+                                <input type="text" name="org_name" id="org_name" value="{{ old('org_name', $org->org_name) }}" class="flex-1">
                             </div>
                             <div class="flex items-center">
                                 <label for="contact_name" class="w-24 font-bold text-center">担当者：</label>

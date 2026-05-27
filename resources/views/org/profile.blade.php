@@ -10,7 +10,7 @@
         <div class="space-y-4">
             <div class="flex items-center">
                 <span class="w-24 font-bold text-center">団体名：</span>
-                <p class="flex-1 border px-3 py-1 border-black min-h-[34px]">{{ $org->organization_name }}</p>
+                <p class="flex-1 border px-3 py-1 border-black min-h-[34px]">{{ $org->org_name }}</p>
             </div>
             <div class="flex items-center">
                 <span class="w-24 font-bold text-center">担当者：</span>

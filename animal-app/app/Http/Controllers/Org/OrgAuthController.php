@@ -24,7 +24,7 @@ class OrgAuthController extends Controller
         ]);
 
         $org = Organization::create([
-            'organization_name' => $request->org_name,
+            'org_name' => $request->org_name,
             'contact_name' => $request->contact_name,
             'email' => $request->email,
             'password' => bcrypt($request->password),

@@ -49,7 +49,7 @@ class OrganizationController extends Controller
 
         // バリデーション
         $request->validate([
-            'organization_name' => 'required|string|max:255',
+            'org_name' => 'required|string|max:255',
             'contact_name' => 'required|string|max:255',
             'location' => 'nullable|string|max:255',
             'activity_description' => 'nullable|string',
@@ -58,7 +58,7 @@ class OrganizationController extends Controller
 
         // 更新
         $org->update([
-            'organization_name' => $request->organization_name,
+            'org_name' => $request->org_name,
             'contact_name' => $request->contact_name,
             'location' => $request->location,
             'activity_description' => $request->activity_description,

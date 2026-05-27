@@ -8,7 +8,7 @@
     data-adoption_status="{{ $match->animal->adoption_status }}"
     data-personality="{{ $match->animal->personality }}"
     data-health_status="{{ $match->animal->health_status }}"
-    data-organization_name="{{ $match->animal->organization->organization_name }}"
+    data-org_name="{{ $match->animal->organization->org_name }}"
     data-comment="{{ $match->animal->comment }}"
     data-role="{{ Auth::guard('web')->check() ? 'user' : (Auth::guard('org')->check() ? 'organization' : 'guest')}}"
     data-favorited="{{ $match->animal->isFavorited ? 'true' : 'false' }}"

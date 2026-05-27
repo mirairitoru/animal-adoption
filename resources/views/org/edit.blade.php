@@ -24,10 +24,10 @@
                             {{-- 保護団体名 --}}
                             <div class="mb-4">
                                 <div class="flex items-center">
-                                    <label for="organization_name" class="w-24 font-bold text-center">団体名：</label>
-                                    <input type="text" name="organization_name" id="organization_name" value="{{ old('organization_name', $org->organization_name) }}" class="flex-1 @error('organization_name') border-red-500 @enderror">
+                                    <label for="org_name" class="w-24 font-bold text-center">団体名：</label>
+                                    <input type="text" name="org_name" id="org_name" value="{{ old('org_name', $org->org_name) }}" class="flex-1 @error('org_name') border-red-500 @enderror">
                                 </div>
-                                @error('organization_name')
+                                @error('org_name')
                                     <div class="flex mt-1">
                                         <div class="w-20 mr-4"></div>
                                         <p class="text-red-500 text-sm">

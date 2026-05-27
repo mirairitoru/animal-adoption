@@ -23,7 +23,7 @@ class UpdateOrganizationProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'organization_name' => 'required|string|min:4|max:255',
+            'org_name' => 'required|string|min:4|max:255',
             'contact_name' => 'required|string|min:2|max:255',
             'location' => 'nullable|string|max:255',
             'activity_description' => 'nullable|string',
@@ -34,9 +34,9 @@ class UpdateOrganizationProfileRequest extends FormRequest
     public function messages()
     {
         return [
-            'organization_name.required' => '団体名は必須です',
-            'organization_name.min' => '団体名は3文字以上で入力してください',
-            'organization_name.max' => '団体名は255文字以内で入力してください',
+            'org_name.required' => '団体名は必須です',
+            'org_name.min' => '団体名は3文字以上で入力してください',
+            'org_name.max' => '団体名は255文字以内で入力してください',
             
             'contact_name.required' => '担当者名は必須です',
             'contact_name.min' => '担当者名は1文字以上で入力してください',

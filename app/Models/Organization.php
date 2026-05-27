@@ -10,7 +10,7 @@ class Organization extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
-        'organization_name',
+        'org_name',
         'contact_name',
         'email',
         'password',
