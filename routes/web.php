@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MatcheController;
 use App\Http\Controllers\Org\OrganizationController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Org\OrgAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\UserAuthController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\UserMatchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,7 +42,8 @@ Route::middleware('auth:org')->group(function () {
     Route::delete('/org/animals/{animal}', [AnimalController::class, 'destroy'])->name('org.animals.destroy');
 
     Route::get('/org/match', [MatcheController::class, 'index'])->name('org.match.index');
-    Route::post('/org/match/approve', [MatcheController::class, 'approve'])->name('org.match.approve');
+    Route::post('/org/match/{favorite}', [MatcheController::class, 'approve'])->name('org.match.approve');
+    Route::patch('/match/{match}/status', [MatcheController::class, 'updateStatus'])->name('org.match.status.update');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -58,10 +61,13 @@ Route::middleware('auth:web')->group(function () {
 
     Route::post('/favorites/{animal}', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+    Route::delete('/matches/{match}', [MatcheController::class, 'destroy'])->name('matches.destroy');
 });
 
-Route::get('/org/register', function () {
-    return redirect('/register');
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register'); 
+Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::get('/org/register', function() {
+    return redirect('/register?role=organization');
 });
 
 Route::post('/login', [UserAuthController::class, 'login'])->name('login');

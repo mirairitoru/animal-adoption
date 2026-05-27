@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="mt-5 space-y-10">
-            <p>性格：<span data-field="personality"></span></p>
+            <p class="flex">性格：<span data-field="personality" class="grid grid-cols-4 md:grid-cols-4 sm:grid-cols-2 gap-2 max-w-fit text-center"></span></p>
             <p>健康状態：<span data-field="health_status"></span></p>
             <p>所属保護団体：<span data-field="organization_name"></span></p>
             <p class="flex items-start">コメント：<span data-field="comment" class="border border-black min-h-20 min-w-[550px] rounded-lg inline-block ml-3 p-2 flex-1"></span></p>

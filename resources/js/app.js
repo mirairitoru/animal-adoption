@@ -7,10 +7,16 @@ window.Alpine = Alpine;
 Alpine.start();
 
 window.setRole = function(role) {
+
+    console.log('setRole実行');
+    console.log('role:', role);
+
     const roleInput = document.getElementById('role');
     if(!roleInput) return;
 
     roleInput.value = role;
+
+    console.log('hidden input value:', roleInput.value);
 
     const userBtn = document.getElementById('btn-user');
     const orgBtn = document.getElementById('btn-org');
@@ -20,29 +26,38 @@ window.setRole = function(role) {
 
     const form = document.getElementById('registerForm');
 
-    userBtn.classList.remove('!bg-green-700', 'text-white');
-    orgBtn.classList.remove('!bg-green-700', 'text-white');
+    userBtn.classList.remove('bg-green-700', 'text-white');
+    orgBtn.classList.remove('bg-green-700', 'text-white');
 
     if (role === 'organization') {
         userFields.classList.add('hidden');
         orgFields.classList.remove('hidden');
-        orgBtn.classList.add('!bg-green-700', 'text-white');
+        userBtn.classList.add('bg-gray-200');
+        orgBtn.classList.add('bg-green-700', 'text-white');
 
-        form.action = '/org/register';
         // userはdisabled = true無効
-        userFields.querySelectorAll('input').forEach(el => el.disabled = true);
+        userFields.querySelectorAll('input').forEach(el => {
+            el.removeAttribute('name');
+        });
+
         // organizationはdisabled = false有効
-        orgFields.querySelectorAll('input').forEach(el => el.disabled = false);
+        orgFields.querySelectorAll('input').forEach(el => {
+            el.setAttribute('name', el.id);
+        });
 
     } else {
         orgFields.classList.add('hidden');
         userFields.classList.remove('hidden');
-        userBtn.classList.add('!bg-green-700', 'text-white');
+        orgBtn.classList.add('bg-gray-200');
+        userBtn.classList.add('bg-green-700', 'text-white');
+        // ここの箇所を編集する
+        orgFields.querySelectorAll('input').forEach(el => {
+            el.removeAttribute('name');
+        });
 
-        form.action = '/register';
-
-        orgFields.querySelectorAll('input').forEach(el => el.disabled = true);
-        userFields.querySelectorAll('input').forEach(el => el.disabled = false);
+        userFields.querySelectorAll('input').forEach(el => {
+            el.setAttribute('name', el.id);
+        });
     }
 };
 
@@ -98,8 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const favoriteBtn = document.getElementById('modal-favorite-btn');
 
             // if(!favoriteBtn) return;
-
-            console.log('isFavorited', isFavorited)
 
             // 保護団体は押せない
             if(role === 'organization' || role === 'org') {
@@ -158,4 +171,44 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.classList.remove('flex');
         });
     }
+
+    document.querySelectorAll('.open-user-modal').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const modal = document.getElementById('user-detail-modal');
+
+            modal.querySelectorAll('[data-field]').forEach(el => {
+                const key = el.dataset.field;
+
+                el.textContent = e.currentTarget.dataset[key] || '';
+            });
+
+            // モダール表示
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
+    });
+
+    // ユーザー閉じるボタン
+    document.getElementById('user-close-modal')
+    ?.addEventListener('click', () => {
+        const modal = document.getElementById('user-detail-modal');
+
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    });
+
+    const matchModal = document.getElementById('match-modal');
+
+    document.getElementById('close-match-modal')
+    ?.addEventListener('click', () => {
+        matchModal.classList.add('hidden');
+        matchModal.classList.remove('flex');
+    });
+
+    document.getElementById('later-match-button')
+    ?.addEventListener('click', () => {
+        matchModal.classList.add('hidden');
+        matchModal.classList.remove('flex');
+    });
+
 });

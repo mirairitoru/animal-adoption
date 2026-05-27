@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('animal_id')->constrained()->cascadeOnDelete();
-            $table->timestamp('matched_at')->nullable();
-            $table->string('status')->default('active');
+            $table->foreignId('user_id')->constrained()->OnDelete('cascade');
+            $table->foreignId('animal_id')->constrained()->OnDelete('cascade');
+            $table->string('status')->default('譲渡準備中');
             $table->unique(['user_id', 'animal_id']);
             $table->timestamps();
         });

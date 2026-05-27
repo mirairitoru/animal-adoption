@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAnimalRequest;
+use App\Http\Requests\UpdateAnimalRequest;
 use App\Models\Animal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Http\Request;
@@ -12,7 +14,9 @@ class AnimalController extends Controller
 
     public function index()
     {
-        $animals = Animal::with('organization')->paginate(6);
+        $animals = Animal::with('organization')
+            ->where('adoption_status', '募集中')
+            ->paginate(6);
 
         if(Auth::guard('web')->check()) {
 
@@ -54,7 +58,7 @@ class AnimalController extends Controller
     }
 
     // 動物登録保存処理
-    public function store(Request $request)
+    public function store(StoreAnimalRequest $request)
     {
         Animal::create([
             'animal_name' => $request->animal_name,
@@ -72,7 +76,7 @@ class AnimalController extends Controller
         return redirect()->route('org.mypage');
     }
 
-    public function update(Request $request, Animal $animal)
+    public function update(UpdateAnimalRequest $request, Animal $animal)
     {
         $animal->update([
             'animal_name' => $request->animal_name,
@@ -84,13 +88,22 @@ class AnimalController extends Controller
             'comment' => $request->comment,
         ]);
 
-        return redirect()->route('org.mypage');
+        return redirect()->route('org.mypage')->with('success', '動物プロフィールを更新しました');
     }
 
     public function destroy(Animal $animal)
     {
+
         if($animal->organization_id !== Auth::guard('org')->id()){
             abort(403);
+        }
+
+        if($animal->matches()->exists()) {
+            $statusText = match($animal->adoption_status){
+                'マッチ中' => 'マッチ中',
+                '譲渡完了' => '譲渡完了',
+            };
+            return back()->with('error', "{$statusText}の動物は削除できません");
         }
 
         $animal->delete();

@@ -12,10 +12,10 @@
             </a>
         </li>
         <li>
-            <a href="#" class="hover:underline hover:text-blue-600">興味ありリスト一覧</a>
+            <a href="#index" class="hover:underline hover:text-blue-600">興味ありリスト一覧</a>
         </li>
         <li>
-            <a href="#" class="hover:underline hover:text-blue-600">マッチした動物一覧</a>
+            <a href="#match" class="hover:underline hover:text-blue-600">マッチした動物一覧</a>
         </li>
         <li>
             <a href="#" class="hover:underline hover:text-blue-600">チャット一覧</a>

@@ -3,28 +3,17 @@
 namespace App\Http\Controllers\Org;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class OrgAuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $request->validate([
-            'org_name' => ['required', 'string', 'max:255'],
-            'contact_name' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'unique:organizations,email'],
-            'password' => ['required', 'confirmed'],
-        ],[
-            'org_name.required' => '団体名は必須です',
-            'contact_name.required' => '担当者名は必須です',
-            'email.required' => 'メールは必須です',
-            'password.required' => 'パスワードは必須です', 
-        ]);
-
         $org = Organization::create([
-            'organization_name' => $request->org_name,
+            'org_name' => $request->org_name,
             'contact_name' => $request->contact_name,
             'email' => $request->email,
             'password' => bcrypt($request->password),

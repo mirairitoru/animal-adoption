@@ -7,9 +7,19 @@
                 <form method="POST" action="{{ route('mypage.update') }}">
                     @csrf
                     {{-- ニックネーム --}}
-                    <div class="mb-4 mt-2 flex items-center">
-                        <label for="nickname" class="mr-3">ニックネーム:</label>
-                        <input type="text" name="nickname" id="nickname" value="{{ old('nickname', $user->nickname) }}" class="flex-1 border p-2">
+                    <div class="mb-4">
+                        <div class="mb-2 mt-2 flex items-center">
+                            <label for="nickname" class="mr-3">ニックネーム:</label>
+                            <input type="text" name="nickname" id="nickname" value="{{ old('nickname', $user->nickname) }}" class="flex-1 border p-2 grid @error('nickname') border-red-500 @enderror">
+                        </div>
+                        @error('nickname')
+                            <div class="flex">
+                                <div class="w-20 mr-2"></div>
+                                <p class="text-red-500 text-sm mr-36">
+                                    {{ $message }}
+                                </p>
+                            </div>
+                        @enderror
                     </div>
                     {{-- 居住エリア --}}
                     <div class="mb-4 flex items-center">
@@ -17,10 +27,21 @@
                         <input type="text" name="residence_area" id="residence_area" value="{{ old('residence_area', $user->residence_area) }}" class="flex-1 border p-2">
                     </div>
                     {{-- 年齢 --}}
-                    <div class="mb-4 flex items-center">
-                        <label for="user_age" class="w-20 mr-2">年齢:</label>
-                        <input type="text" name="user_age" id="user_age" value="{{ old('user_age', $user->user_age) }}" class="border p-2">
+                    <div class="mb-4">
+                        <div class="mb-2 flex items-center">
+                            <label for="user_age" class="w-20 mr-2 text-center">年齢:</label>
+                            <input type="text" name="user_age" id="user_age" value="{{ old('user_age', $user->user_age) }}" class="border text-center w-20 p-2 @error('user_age') border-red-500 @enderror">
+                        </div>
+                        @error('user_age')
+                            <div class="flex">
+                                <div class="w-20 mr-2"></div>
+                                <p class="text-red-500 text-sm">
+                                    {{ $message }}
+                                </p>
+                            </div>
+                        @enderror
                     </div>
+
                     {{-- 飼育経験 --}}
                     <div class="mb-4 flex items-center">
                         <label for="animal_care_experience" class="mr-5">飼育経験:</label>

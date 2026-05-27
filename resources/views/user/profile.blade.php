@@ -10,19 +10,19 @@
                 </div>
                 {{-- 基本情報 --}}
                 <div class="ml-4 space-y-4">
-                    <p>ニックネーム:{{ $user->nickname }}</p>
-                    <p>居住エリア:{{ $user->residence_area }}</p>
-                    <p>年齢:{{ $user->user_age }}</p>
+                    <p>ニックネーム:<span>{{ $user->nickname }}</span></p>
+                    <p>居住エリア:<span>{{ $user->residence_area }}</span></p>
+                    <p>年齢:<span>{{ $user->user_age }}</span></p>
                 </div>
             </div>
-            <div class="absolute top-0 bottom-0 left-[335px] border-l border-black"></div>
+            <div class="absolute top-0 bottom-0 left-[344px] border-l border-black"></div>
         </div>
         <div class="py-4 space-y-4 mb-10">
             <div class="flex mb-10">
-                <p class="w-40">飼育経験:{{ $user->animal_care_experience }}</p>
-                <p class="w-40">飼育詳細情報:{{ $user->animal_care_details }}</p>
+                <p class="w-40">飼育経験:<span>{{ $user->animal_care_experience }}</span></p>
+                <p class="w-full">飼育詳細情報:<span>{{ $user->animal_care_details }}</span></p>
             </div>
-            <p>自己紹介:{{ $user->self_introduction }}</p>
+            <p>自己紹介:<span>{{ $user->self_introduction }}</span></p>
         </div>
     </div>
 </div>

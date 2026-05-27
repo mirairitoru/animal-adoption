@@ -16,17 +16,32 @@ class FavoriteController extends Controller
 
         $userId = Auth::id();
 
+        $animal = Animal::findOrFail($animalId);
+
+        if($animal->adoption_status !== '募集中') {
+            return back()->with(
+                'error',
+                'この動物は現在申請できませ'
+            );
+        }
+
         $exists = Favorite::where('user_id', $userId,)
             ->where('animal_id',$animalId)
             ->exists();
 
         if($exists) {
-            return back()->with('error', 'すでに興味あり登録されています');
-        }
 
+            return back()->with(
+                'error',
+                'すでに興味あり登録されています'
+            );
+
+        }
+       
         Favorite::create([
             'user_id' => $userId,
             'animal_id' => $animalId,
+            'status' => 'pending',
         ]);
 
         return back()->with('success', '興味ありに追加しました');
@@ -34,7 +49,7 @@ class FavoriteController extends Controller
 
     public function index()
     {
-        $favorites = Favorite::with('animal')->where('user_id', Auth::id())->latest()->get();
+        $favorites = Favorite::with('animal')->where('user_id', Auth::id())->latest()->paginate(3);
         return view('favorites.index', compact('favorites'));
     }
 

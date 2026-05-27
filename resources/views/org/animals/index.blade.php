@@ -18,30 +18,38 @@
                     <th class="border border-black">操作</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($animals as $index => $animal)
+            <tbody class="min-h-[400px]">
+                @if($animals->isEmpty())
                     <tr>
-                        <td class="border border-black">{{ $animals->firstItem() + $index }}</td>
-                        <td class="border border-black">{{ $animal->animal_name }}</td>
-                        <td class="border border-black">{{ $animal->species }}</td>
-                        <td class="border border-black">{{ $animal->age_label }}{{ $animal->age_sub }}</td>
-                        <td class="border border-black">{{ $animal->sex }}</td>
-                        <td class="border border-black">{{ $animal->adoption_status }}</td>
-                        <td class="border border-black space-x-2">
-                            <div class="space-x-2">
-                                @include('components.modal-button')
-                                <a href="{{ route('org.animals.edit', $animal->id) }}" class="hover:underline hover:text-blue-600">編集</a>
-                                <form action="{{ route('org.animals.destroy', $animal->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" onclick="return confirm('本当に削除しますか？')" class="hover:underline">
-                                        削除
-                                    </button>
-                                </form>
-                            </div>
+                        <td colspan="7" class="border border-black py-6 text-center">
+                            登録している動物はいません
                         </td>
-                    </tr>      
-                @endforeach
+                    </tr>
+                @else
+                    @foreach ($animals as $index => $animal)
+                        <tr>
+                            <td class="border border-black">{{ $animals->firstItem() + $index }}</td>
+                            <td class="border border-black">{{ $animal->animal_name }}</td>
+                            <td class="border border-black">{{ $animal->species }}</td>
+                            <td class="border border-black">{{ $animal->age_label }}{{ $animal->age_sub }}</td>
+                            <td class="border border-black">{{ $animal->sex }}</td>
+                            <td class="border border-black">{{ $animal->adoption_status }}</td>
+                            <td class="border border-black space-x-2">
+                                <div class="space-x-2">
+                                    @include('components.modal-button')
+                                    <a href="{{ route('org.animals.edit', $animal->id) }}" class="hover:underline hover:text-blue-600">編集</a>
+                                    <form action="{{ route('org.animals.destroy', $animal->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('本当に削除しますか？')" class="hover:underline">
+                                            削除
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>      
+                    @endforeach
+                @endif
             </tbody>
         </table>
 
