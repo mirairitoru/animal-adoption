@@ -10,20 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class OrgAuthController extends Controller
 {
-    public function register(RegisterRequest $request)
-    {
-        $org = Organization::create([
-            'org_name' => $request->org_name,
-            'contact_name' => $request->contact_name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-
-        Auth::guard('org')->login($org);
-
-        return redirect('/animals');
-    }
-
     public function login(Request $request)
     {
         $request->validate([
@@ -31,15 +17,22 @@ class OrgAuthController extends Controller
             'password' => ['required'],
         ]);
 
-    if (Auth::guard('org')->attempt([
-        'email' => $request->email,
-        'password' => $request->password,
-    ])) {
-        return redirect()->route('animals');
+        if (Auth::guard('org')->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ])) {
+            return redirect()->route('animals');
+        }
+
+        return back()->withErrors([
+            'email' => 'メールアドレスまたはパスワードが正しくありません'
+            ])->withInput()->with('login_type', 'org');
     }
 
-    return back()->withErrors([
-        'email' => 'ログインに失敗しました'
-        ])->withInput()->with('login_type', 'org');
+    public function logout()
+    {
+        Auth::guard('org')->logout();
+
+        return redirect('/');
     }
 }

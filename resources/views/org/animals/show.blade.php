@@ -25,8 +25,8 @@
                         <p>年齢:{{ $animal->age_label }}{{ $animal->age_sub }}</p>
                         <p>性別:{{ $animal->sex }}</p>
                         <div class="flex flex-wrap gap-2 mt-2">性格:
-                            @foreach (array_slice(explode(',' , $animal->personality), 0,2) as $p)
-                                <span class="border border-black px-2">{{ $p }}</span>
+                            @foreach ($animal->personality ?? [] as $personality)
+                                <span class="border border-black px-2">{{ $personality }}</span>
                             @endforeach
                         </div>
                         <div class="text-center justify-center mt-3">

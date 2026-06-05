@@ -5,13 +5,13 @@
         @method('PUT')
     @endif
     {{-- 名前 --}}
-    <div class="grid grid-cols-[120px_1fr] gap-y-8 gap-x-4">
+    <div class="grid grid-cols-[125px_1fr] gap-y-6 gap-x-4">
         <label for="animal_name" class="font-bold text-center pt-2 pr-2">名前：</label>
         <div class="mb-4">
             <input type="text" name="animal_name" id="animal_name" value="{{ old('animal_name', $animal->animal_name ?? '') }}" class="w-full @error('animal_name') border-red-500 @enderror">
-            <div class="min-h-[20px] mt-1 mb-2">
+            <div class="min-h-[10px] mt-2">
                 @error('animal_name')
-                    <p class="text-red-500 text-sm mt-2">
+                    <p class="text-red-500 text-sm">
                         {{ $message }}
                     </p>
                 @enderror
@@ -29,9 +29,9 @@
                     </label>
                 @endforeach
             </div>
-            <div class="min-h-[20px] mt-1 mb-2">
+            <div class="min-h-[10px] mt-2">
                 @error('species')
-                    <p class="text-red-500 text-sm mt-2">
+                    <p class="text-red-500 text-sm">
                         {{ $message }}
                     </p>
                 @enderror
@@ -59,9 +59,9 @@
                     </label>
                 @endforeach
             </div>
-            <div class="min-h-[20px] mt-1 mb-2">
+            <div class="min-h-[10px] mt-2">
                 @error('age')
-                    <p class="text-red-500 text-sm mt-2">
+                    <p class="text-red-500 text-sm">
                         {{ $message }}
                     </p>
                 @enderror
@@ -79,9 +79,9 @@
                     </label>
                 @endforeach
             </div>
-            <div class="min-h-[20px] mt-1 mb-2">
+            <div class="min-h-[10px] mt-2">
                 @error('sex')
-                    <p class="text-red-500 text-sm mt-2">
+                    <p class="text-red-500 text-sm">
                         {{ $message }}
                     </p>
                 @enderror
@@ -106,9 +106,9 @@
                     </label>
                 @endforeach
             </div>
-            <div class="min-h-[20px] mt-1 mb-2">
+            <div class="min-h-[10px] mt-2">
                 @error('personality')
-                    <p class="text-red-500 text-sm mt-2">
+                    <p class="text-red-500 text-sm">
                         {{ $message }}
                     </p>
                 @enderror

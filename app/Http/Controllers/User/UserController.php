@@ -4,8 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserProfileRequest;
+use App\Models\AdoptionMatch;
 use App\Models\Favorite;
-use App\Models\Matche;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +14,8 @@ class UserController extends Controller
     public function mypage()
     {
         $user = Auth::guard('web')->user();
-        $favorites = Favorite::with('animal')->where('user_id', Auth::id())->where('status', 'pending')->latest()->paginate(3);
-        $matches = Matche::where('user_id', $user->id)->with('animal')->paginate(3);
+        $favorites = Favorite::with('animal')->where('user_id', $user->id)->where('status', 'pending')->latest()->paginate(3);
+        $matches = AdoptionMatch::where('user_id', $user->id)->with('animal')->paginate(3);
         return view('user.mypage', compact(
             'user',
             'favorites',

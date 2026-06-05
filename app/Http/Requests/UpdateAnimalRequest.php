@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateAnimalRequest extends FormRequest
 {
@@ -12,7 +13,8 @@ class UpdateAnimalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        $animal = $this->route('animal');
+        return $animal && $animal->organization_id === Auth::guard('org')->id();
     }
 
     /**

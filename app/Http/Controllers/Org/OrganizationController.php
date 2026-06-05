@@ -45,7 +45,7 @@ class OrganizationController extends Controller
         $org = Auth::guard('org')->user();
 
         if(!$org) {
-            return redirect()->route('/');
+            return redirect()->route('home');
         }
 
         // バリデーション

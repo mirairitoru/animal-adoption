@@ -48,6 +48,6 @@ class User extends Authenticatable
 
     public function matches()
     {
-        return $this->hasMany(Matche::class);
+        return $this->hasMany(AdoptionMatch::class);
     }
 }

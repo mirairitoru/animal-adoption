@@ -8,9 +8,6 @@ Alpine.start();
 
 window.setRole = function(role) {
 
-    console.log('setRole実行');
-    console.log('role:', role);
-
     const roleInput = document.getElementById('role');
     if(!roleInput) return;
 

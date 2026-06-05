@@ -18,7 +18,7 @@
             <a href="{{ route('org.mypage') }}" class="hover:underline hover:text-blue-600">保護動物一覧</a>
         </li>
         <li>
-            <a href="{{ route('org.match.index') }}" class="hover:underline hover:text-blue-600">マッチ管理</a>
+            <a href="{{ route('org.favorite.index') }}" class="hover:underline hover:text-blue-600">マッチ管理</a>
         </li>
         <li>
             <a href="#" class="hover:underline hover:text-blue-600">チャット一覧</a>

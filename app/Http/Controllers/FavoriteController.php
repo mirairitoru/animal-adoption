@@ -11,22 +11,21 @@ use Illuminate\Support\Facades\Auth;
 class FavoriteController extends Controller
 {
 
-    public function store(int $animalId)
+    public function store(Animal $animal)
     {
 
         $userId = Auth::id();
 
-        $animal = Animal::findOrFail($animalId);
-
         if($animal->adoption_status !== '募集中') {
             return back()->with(
                 'error',
-                'この動物は現在申請できませ'
+                'この動物は現在申請できません'
             );
         }
 
         $exists = Favorite::where('user_id', $userId,)
-            ->where('animal_id',$animalId)
+            ->where('animal_id',$animal->id)
+            ->whereIn('status', ['pending', 'matched'])
             ->exists();
 
         if($exists) {
@@ -38,27 +37,37 @@ class FavoriteController extends Controller
 
         }
        
-        Favorite::create([
+        $favorite = Favorite::firstOrNew([
             'user_id' => $userId,
-            'animal_id' => $animalId,
-            'status' => 'pending',
+            'animal_id' => $animal->id,
         ]);
+
+        $favorite->status = 'pending';
+        $favorite->save();
 
         return back()->with('success', '興味ありに追加しました');
     }
 
     public function index()
     {
-        $favorites = Favorite::with('animal')->where('user_id', Auth::id())->latest()->paginate(3);
+        $favorites = Favorite::with('animal')
+            ->where('user_id', Auth::id())
+            ->whereIn('status', ['pending', 'matched'])
+            ->latest()
+            ->paginate(3);
         return view('favorites.index', compact('favorites'));
     }
 
     public function destroy(int $id)
     {
-        $favorite = Favorite::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $favorite = Favorite::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
 
-        $favorite->delete();
+        $favorite->update([
+            'status' => 'cancelled',
+        ]);
 
-        return back();        
+        return back()->with('success', '興味ありをキャンセルしました');        
     }
 }

@@ -34,6 +34,10 @@ class Animal extends Model
         'senior' => ['label' => 'シニア', 'sub' => '(10歳以上)'],
     ];
 
+    protected $casts = [
+        'personality' => 'array',
+    ];
+
     public function getAgeLabelAttribute()
     {
         return self::AGE_MAP[$this->age]['label'] ?? null;
@@ -54,19 +58,8 @@ class Animal extends Model
         return $this->hasMany(Favorite::class);
     }
 
-    public function matches()
+    public function matche()
     {
-        return $this->hasMany(Matche::class);
-    }
-
-    public function getIsFavoritedAttribute()
-    {
-        if(!Auth::check()) {
-            return false;
-        }
-
-        return $this->favorites()
-            ->where('user_id', Auth::id())
-            ->exists();
+        return $this->hasMany(AdoptionMatch::class);
     }
 }

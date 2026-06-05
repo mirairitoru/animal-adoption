@@ -28,16 +28,14 @@ class RegisterRequest extends FormRequest
                 'org_name' => 'required|string|max:255',
                 'contact_name' => 'required|string|max:100',
                 'email' => 'required|email|unique:organizations,email',
-                'password' => 'required|confirmed|min:9',
-                'password_confirmation' => 'required|min:9',
+                'password' => 'required|confirmed|min:8',
             ];
         };
         return [
             'user_name' => 'required|string|max:255',
-            'nickname' => 'required|string|max:101',
+            'nickname' => 'required|string|max:100',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:9',
-            'password_confirmation' => 'required|min:9',
+            'password' => 'required|confirmed|min:8',
         ];
     }
 
@@ -54,8 +52,6 @@ class RegisterRequest extends FormRequest
                 'password.required' => 'パスワードは必須です',
                 'password.confirmed' => 'パスワードが一致しません',
                 'password.min' => 'パスワードは8文字以上で入力してください',
-                'password_confirmation.required' => 'パスワード(確認)は必須です',
-                'password_confirmation.min' => 'パスワード(確認)は8文字以上で入力してください',
             ];
         };
         return [
@@ -68,8 +64,6 @@ class RegisterRequest extends FormRequest
             'password.required' => 'パスワードは必須です',
             'password.confirmed' => 'パスワードが一致しません',
             'password.min' => 'パスワードは8文字以上で入力してください',
-            'password_confirmation.required' => 'パスワード(確認)は必須です',
-            'password_confirmation.min' => 'パスワード(確認)は8文字以上で入力してください',
         ];
     }
 }

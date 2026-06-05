@@ -18,20 +18,20 @@ class AnimalController extends Controller
             ->where('adoption_status', '募集中')
             ->paginate(6);
 
+        $favoriteIds = [];
+
         if(Auth::guard('web')->check()) {
 
             /** @var \App\Models\User $user */
             $user = Auth::guard('web')->user();
 
-            $favoriteIds = $user->favorites()->pluck('animal_id')->toArray();
-
-            foreach($animals as $animal) {
-                $animal->isFavorited = in_array($animal->id, $favoriteIds);
-            }
-        } else {
-            foreach($animals as $animal) {
-                $animal->isFavorited = false;
-            }
+            $favoriteIds = $user->favorites()
+                ->whereIn('status', ['pending', 'matched'])
+                ->pluck('animal_id')
+                ->toArray();
+        }
+        foreach($animals as $animal) {
+            $animal->isFavorited = in_array($animal->id, $favoriteIds);
         }
 
         return view('index', compact('animals'));
@@ -40,7 +40,9 @@ class AnimalController extends Controller
     // 動物詳細画面
     public function show(int $id)
     {
-        $animal = Animal::with('organization')->findOrFail($id);
+        $animal = Animal::with('organization')
+            ->where('adoption_status', '募集中')
+            ->findOrFail($id);
         return view('animals.show', compact('animal'));
     }
 
@@ -51,9 +53,9 @@ class AnimalController extends Controller
         return view('org.animals.create', compact('animal'));
     }
 
-    public function edit(int $id)
+    public function edit(Animal $animal)
     {
-        $animal = Animal::findOrFail($id);
+        abort_unless($animal->organization_id === Auth::guard('org')->id(), 403);
         return view('org.animals.edit', compact('animal'));
     }
 
@@ -65,7 +67,7 @@ class AnimalController extends Controller
             'species' => $request->species,
             'age' => $request->age,
             'sex' => $request->sex,
-            'personality' => implode(',', $request->personality ?? []),
+            'personality' => $request->personality,
             'health_status' => $request->health_status,
             'comment' => $request->comment,
             'adoption_status' => '募集中',
@@ -83,7 +85,7 @@ class AnimalController extends Controller
             'species' => $request->species,
             'age' => $request->age,
             'sex' => $request->sex,
-            'personality' => implode(',', $request->personality ?? []),
+            'personality' => $request->personality,
             'health_status' => $request->health_status,
             'comment' => $request->comment,
         ]);
@@ -98,12 +100,11 @@ class AnimalController extends Controller
             abort(403);
         }
 
-        if($animal->matches()->exists()) {
-            $statusText = match($animal->adoption_status){
-                'マッチ中' => 'マッチ中',
-                '譲渡完了' => '譲渡完了',
-            };
-            return back()->with('error', "{$statusText}の動物は削除できません");
+        if($animal->matche()->exists()) {
+            return back()->with(
+                'error',
+                "{$animal->adoption_status}の動物は削除できません"
+            );
         }
 
         $animal->delete();
