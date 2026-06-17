@@ -10,22 +10,22 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-noto antialiased h-screen">
         @if(session('success'))
             {{ session('success') }}
         @endif
         @if(session('error'))
             {{ session('error') }}
         @endif
-        <div class="min-h-screen">
-            @include('layouts.header')
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
+        @include('layouts.header')
+        <main class="min-h-screen max-w-7xl mx-auto">
+            {{ $slot }}
+        </main>
+        @include('layouts.foter')
     </body>
 </html>

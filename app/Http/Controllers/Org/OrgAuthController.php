@@ -12,10 +12,17 @@ class OrgAuthController extends Controller
 {
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        $request->validate(
+            [
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ],
+            [
+                'email.required' => 'メールアドレスを入力してください',
+                'email.email' => 'メールアドレス形式で入力してください',
+                'password' => 'パスワードを入力してください',
+            ]
+        );
 
         if (Auth::guard('org')->attempt([
             'email' => $request->email,

@@ -3,7 +3,7 @@
         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div class="bg-white w-[500px] p-8 relative">
             {{-- 閉じる --}}
-            <button id="close-match-modal" class="absolute top-3 right-3 text-xl font-bold">
+            <button id="close-match-modal" class="absolute top-3 right-3 text-xl font-bold hover:red-500">
                 x
             </button>
             <h2 class="text-2xl font-bold text-center mb-6">

@@ -1,3 +1,3 @@
-<div>
+<x-guest-layout>
     @include('auth.login-custom')
-</div>
+</x-guest-layout>

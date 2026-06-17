@@ -6,7 +6,7 @@
     data-age="{{ $match->animal->age_label }}{{ $match->animal->age_sub }}"
     data-sex="{{ $match->animal->sex }}"
     data-adoption_status="{{ $match->animal->adoption_status }}"
-    data-personality="{{ $match->animal->personality }}"
+    data-personality="{{ implode(',', $match->animal->personality ?? []) }}"
     data-health_status="{{ $match->animal->health_status }}"
     data-org_name="{{ $match->animal->organization->org_name }}"
     data-comment="{{ $match->animal->comment }}"

@@ -1,7 +1,9 @@
 <header class="mt-4">
-    <nav class="flex mt-4">
-        @include('auth.partials.logo', ['route' => 'animals'])
-        <div class="flex mt-2 ml-auto space-x-12 mr-8 font-bold">
+    <nav class="flex mt-4 max-w-7xl mx-auto">
+        <div>
+            @include('auth.partials.logo', ['route' => 'animals', 'colorType' => 'header'])
+        </div>
+        <div class="flex mt-4 ml-auto space-x-24 mr-8 font-bold text-2xl">
             <a href="{{ route('animals') }}"
                 class="{{ request()->routeIs('animals')
                 ? 'text-blue-600 underline'

@@ -11,25 +11,56 @@
         </span>
     </p>
 @else
-    <div class="max-w-4xl grid grid-cols-3 mx-auto gap-8">
+    <div class="grid grid-cols-3 mx-auto gap-8">
         @foreach ($animals as $animal)
             @if($animal->adoption_status === '募集中')
-                <div class="border border-black p-4 text-center">
+                <div class="border border-black p-4 text-center shadow-lg rounded-lg">
                     <div class="bg-gray-200 h-40 flex items-center justify-center">
-                        画像
+                        イメージ
                     </div>
 
-                    <div class="mt-4 text-left">
-                        <p>名前:<span class="text-center">{{ $animal->animal_name }}</span></p>
-                        <p>種類:{{ $animal->species }}</p>
-                        <p>年齢:{{ $animal->age_label }}{{ $animal->age_sub }}</p>
-                        <p>性別:{{ $animal->sex }}</p>
-                        <div class="flex flex-wrap gap-2 mt-2">性格:
-                            @foreach ($animal->personality ?? [] as $personality)
-                                <span class="border border-black px-2">{{ $personality }}</span>
-                            @endforeach
+                    <div class="mt-4 space-y-2">
+                        <p class="grid grid-cols-3">
+                            <span class="text-left">名前:</span>
+                            <span class="text-center">
+                                {{ $animal->animal_name }}
+                            </span>
+                        </p>
+                        <p class="grid grid-cols-3">
+                            <span class="text-left">種類:</span>
+                            <span class="text-center">
+                                {{ $animal->species }}
+                            </span>
+                        </p>
+                        <p class="grid grid-cols-3">
+                            <span class="text-left">年齢:</span>
+                            <span class="text-center whitespace-nowrap">
+                                {{ $animal->age_label }}{{ $animal->age_sub }}
+                            </span>
+                        </p>
+                        <p class="grid grid-cols-3">
+                            <span class="text-left">性別:</span>
+                            <span class="text-center">
+                                {{ $animal->sex }}
+                            </span>
+                        </p>
+                        <div class="grid grid-cols-3 mt-2">
+                            <span class="text-left shrink-0">性格:</span>
+
+                            @php
+                                $personalities = collect($animal->personality)
+                                    ->flatten()
+                                    ->take(1);   
+                            @endphp
+                            <div class="flex-1 flex justify-center gap-2">
+                                @foreach ($personalities as $personality)
+                                    <span class="border text-center border-black px-2 py-1 rounded-md">
+                                        {{ is_array($personality) ? implode(',', $personality) : $personality }}
+                                    </span>
+                                @endforeach
+                            </div>
                         </div>
-                        <div class="text-center justify-center mt-3">
+                        <div class="text-center justify-center py-2">
                             @include('components.modal-button')
                         </div>
                     </div>
@@ -39,7 +70,7 @@
     </div>
 @endif
 
-<div class="mt-6 text-center flex justify-center">
+<div class="mt-6 mb-8 text-center flex justify-center">
     {{ $animals->links() }}
 </div>
 @include('components.modal')

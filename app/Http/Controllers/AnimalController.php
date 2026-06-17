@@ -16,7 +16,7 @@ class AnimalController extends Controller
     {
         $animals = Animal::with('organization')
             ->where('adoption_status', '募集中')
-            ->paginate(6);
+            ->paginate(9);
 
         $favoriteIds = [];
 

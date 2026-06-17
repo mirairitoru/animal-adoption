@@ -3,7 +3,7 @@
         @include('org.sidebar')
         <div class="flex-1 p-10">
             <h2 class="text-xl font-bold mb-6 text-center">団体情報編集画面</h2>
-            <div class="max-w-2xl mx-auto bg-gray-200 p-6 border">
+            <div class="max-w-3xl mx-auto bg-gray-200 p-6 border">
                 <div class="bg-white border border-black px-6 py-6">
                     <form method="POST" action="{{ route('org.mypage.update') }}">
                         @csrf
@@ -11,7 +11,7 @@
                         <h3 class="font-bold">団体情報を編集</h3>
                         <div class="border-t border-black my-4">
                             <div class="flex items-center gap-7">
-                                <div class="w-96 h-40 bg-gray-200 my-4 flex items-center justify-center">
+                                <div class="w-96 h-60 bg-gray-200 my-4 flex items-center justify-center">
                                     画像
                                 </div>
                                 <button type="button" class="border h-fit bg-gray-200 p-2">

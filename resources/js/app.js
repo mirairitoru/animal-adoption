@@ -65,23 +65,59 @@ window.switchTab = function(role) {
     const userForm = document.getElementById('userForm');
     const orgForm = document.getElementById('orgForm');
 
-    userBtn.classList.remove('border-blue-600', 'text-blue-600');
-    orgBtn.classList.remove('border-blue-600', 'text-blue-600');
+    userBtn.classList.remove('active');
+    orgBtn.classList.remove('active');
+
+    // userBtn.classList.add('text-[#F56B01]', 'border-transparent');
+    // orgBtn.classList.add('text-[#F56B01]', 'border-transparent');
 
     if(role === 'org') {
-        orgBtn.classList.add('underline', 'text-blue-600');
-        userBtn.classList.remove('underline', 'text-blue-600');
-
+        // orgBtn.classList.remove('text-[#F56B01]', 'border-transparent');
+        orgBtn.classList.add('active');
+        
         userForm.classList.add('hidden');
         orgForm.classList.remove('hidden');
     } else {
-        userBtn.classList.add('underline', 'text-blue-600');
-        orgBtn.classList.remove('underline', 'text-blue-600');
-
+        // userBtn.classList.remove('text-[#F56B01]', 'border-transparent');
+        userBtn.classList.add('active');
+        
         orgForm.classList.add('hidden');
         userForm.classList.remove('hidden');
     }
 };
+
+// ログインのタブ未選択チェック
+window.checkLoginTabSelected = function() {
+    const userBtn = document.getElementById('login-btn-user');
+    const orgBtn = document.getElementById('login-btn-org');
+
+    if(!userBtn.classList.contains('active') && !orgBtn.classList.contains('active')) {
+        showPopup("「一般ユーザー」または「保護団体」\nを選択してください");
+        document.activeElement.blur();
+        return false;
+    }
+    return true;
+};
+
+window.showPopup = function(message) {
+    const popup = document.getElementById('popup-message');
+    const text = document.getElementById('popup-text');
+    const box = document.getElementById('popup-box');
+
+    text.innerHTML = message.replace(/\n/g, "<br>");
+    popup.classList.remove('hidden');
+    box.classList.remove('opacity-0');
+    box.classList.add('opacity-100');
+
+    setTimeout(() => {
+        box.classList.remove('opacity-100');
+        box.classList.add('opacity-0');
+    }, 2000);
+
+    setTimeout(() => {
+        popup.classList.add('hidden');
+    }, 2500);
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const roleInput = document.getElementById('role');
@@ -207,5 +243,4 @@ document.addEventListener('DOMContentLoaded', function() {
         matchModal.classList.add('hidden');
         matchModal.classList.remove('flex');
     });
-
 });

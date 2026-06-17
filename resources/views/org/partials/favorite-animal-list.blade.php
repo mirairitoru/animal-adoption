@@ -17,7 +17,7 @@
         <a href="{{ route('org.favorite.index', [
             'animal_id' => $animal->id,
         ]) }}"
-            class="right-7 w-48 relative border border-t mb-2 flex justify-start items-center hover:bg-gray-50 cursor-pointer">
+            class="right-7 w-full relative border border-t mb-4 flex justify-start items-center hover:bg-gray-50 cursor-pointer ml-4 rounded-lg">
             <div class="flex text-sm bg-gray-200 w-12 h-12 items-center justify-center">
                 画像
             </div>

@@ -1,33 +1,33 @@
-<div class="w-40 h-fit bg-gray-200 p-4 space-y-4 font-bold text-center">
-    <div>
+<div class="w-70 sticky top-4 h-fit overflow-y-auto bg-gradient-to-b from-blue-50 to-orange-100 p-4 space-y-8 rounded-xl shadow border text-center">
+    <div class="text-lg font-bold text-[#5293FF]">
         【団体マイページ】
     </div>
-    <ul class="space-y-4">
+    <ul class="space-y-8 text-gray-700 font-medium">
         <li>
-            <a href="#" class="hover:underline hover:text-blue-600">ダッシュボード</a>
+            <a href="#" class="hover:underline hover:text-[#5293FF]">ダッシュボード</a>
         </li>
         <li>
             <a href="{{ route('org.animals.create') }}"
                 class="{{ request()->routeIs('org.animals.create')
-                ? 'text-blue-600 underline'
-                : 'text-gray-900 hover:underline hover:text-blue-600' }}">
+                ? 'text-[#5293FF] underline'
+                : 'text-gray-700 hover:underline hover:text-[#5293FF]' }}">
                 保護動物登録
             </a>
         </li>
         <li>
-            <a href="{{ route('org.mypage') }}" class="hover:underline hover:text-blue-600">保護動物一覧</a>
+            <a href="{{ route('org.mypage') }}" class="hover:underline hover:text-[#5293FF]">保護動物一覧</a>
         </li>
         <li>
-            <a href="{{ route('org.favorite.index') }}" class="hover:underline hover:text-blue-600">マッチ管理</a>
+            <a href="{{ route('org.favorite.index') }}" class="hover:underline hover:text-[#5293FF]">マッチ管理</a>
         </li>
         <li>
-            <a href="#" class="hover:underline hover:text-blue-600">チャット一覧</a>
+            <a href="#" class="hover:underline hover:text-[#5293FF]">チャット一覧</a>
         </li>
         <li>
             <a href="{{ route('org.mypage.edit') }}"
                 class="{{ request()->routeIs('org.mypage.edit')
-                ? 'text-blue-600 underline'
-                : 'text-gray-900 hover:underline hover:text-blue-600' }}">
+                ? 'text-[#5293FF] underline'
+                : 'text-gray-700 hover:underline hover:text-[#5293FF]' }}">
                 団体情報編集
             </a>
         </li>

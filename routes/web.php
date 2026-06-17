@@ -62,7 +62,7 @@ Route::get('/register', [RegisteredUserController::class, 'create'])->name('regi
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::get('/org/register', [HomeController::class, 'orgRegister']);
 
-Route::post('/login', [UserAuthController::class, 'login'])->name('login');
+Route::post('/user/login', [UserAuthController::class, 'login'])->name('user.login');
 Route::post('/org/login', [OrgAuthController::class, 'login'])->name('org.login');
 
 require __DIR__.'/auth.php';

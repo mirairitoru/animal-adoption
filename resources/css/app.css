@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .tab-btn {
+        @apply relative pb-3 font-semibold;
+    }
+
+    .tab-btn::after {
+        content: "";
+        @apply absolute left-1/2 -translate-x-1/2 bottom-0 h-[2px] bg-gray-200;
+        width: 230px;
+    }
+
+    .tab-btn.active {
+        @apply text-[#5293FF];
+    }
+
+    .tab-btn.active::after {
+        @apply bg-[#5293FF];
+    }
+}

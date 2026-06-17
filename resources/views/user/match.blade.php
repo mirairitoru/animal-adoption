@@ -1,8 +1,14 @@
-<div class="border bg-gray-200 mt-6 p-6">
-    <div class="bg-white border border-black p-6">
+<div class="bg-gradient-to-r from-blue-100 to-blue-50 mt-6 p-6 rounded-lg">
+    <div class="bg-white border border-black p-6 rounded-lg">
         <h2 class="font-bold mb-4">マッチした動物</h2>
         @if($matches->isEmpty())
-            <p class="grid min-h-[400px] items-center justify-center border-blue-200 bg-blue-200">
+            <p class="grid min-h-[400px] items-center justify-center relative">
+                <svg class="icon icon-paw w-8 h-8 text-[#F56B01] left-[calc(50%-210px)] top-1/2 -translate-y-1/2 absolute">
+                    <use href="/icons.svg#icon-paw"></use>
+                </svg>
+                <svg class="icon icon-paw w-8 h-8 text-[#F56B01] right-[calc(50%-210px)] top-1/2 -translate-y-1/2 absolute">
+                    <use href="/icons.svg#icon-paw"></use>
+                </svg>
                 あなたがマッチしているパートナーはいません
             </p>
         @else

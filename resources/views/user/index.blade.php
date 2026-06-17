@@ -1,13 +1,19 @@
-<div class="border bg-gray-200 mt-6 p-6">
-    <div class="bg-white border border-black p-6">
-        <h2 class="font-bold mb-4">ユーザー興味ありリスト</h2>
+<div class="bg-gradient-to-r from-blue-100 to-blue-50 mt-6 p-6 rounded-lg">
+    <div class="bg-white border border-black p-6 rounded-lg">
+        <h2 class="mb-4">ユーザー興味ありリスト</h2>
         @if($favorites->isEmpty())
-            <p class="grid min-h-[400px] items-center justify-center border-blue-200 bg-blue-200">
+            <p class="grid min-h-[400px] items-center justify-center relative">
+                <svg class="icon icon-paw w-8 h-8 text-[#5293FF] left-[calc(50%-240px)] top-1/2 -translate-y-1/2 absolute">
+                    <use href="/icons.svg#icon-paw"></use>
+                </svg>
+                <svg class="icon icon-paw w-8 h-8 text-[#5293FF] right-[calc(50%-240px)] top-1/2 -translate-y-1/2 absolute">
+                    <use href="/icons.svg#icon-paw"></use>
+                </svg>
                 あなたが興味ありを申請しているパートナーはいません
             </p>
         @else
             @foreach ($favorites as $favorite)
-                <div class="border p-4 mb-8 flex justify-between items-center">
+                <div class="border border-gray-300 p-4 mb-8 flex justify-between items-center">
 
                     {{-- 左側 --}}
                     <div class="flex">
